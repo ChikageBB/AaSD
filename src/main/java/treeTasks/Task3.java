@@ -17,7 +17,7 @@ public class Task3 {
         System.out.println(printNTree(root));
     }
 
-    /*
+/*
                     1
                   / | \
                  2  3  4
@@ -43,5 +43,4 @@ public class Task3 {
         res.append(")");
         return res.toString();
     }
-
 }
