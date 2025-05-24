@@ -42,17 +42,25 @@ public class TaskData {
 
     public static void main(String[] args) {
 
-        int[] sizes = {100, 500, 1000, 5000, 10000};
+        int[] sizes = {100, 500, 1000, 5000, 10_000, 15_000, 20_000,
+                               25_000,  50_000, 100_000, 200_000, 500_000, 1_000_000};
 
-        String fileName = "task_100.txt";
-        List<Task> tasks = loadTaskIntoFile(fileName);
+//
+//        String fileName = "task_100.txt";
+//        List<Task> tasks = loadTaskIntoFile(fileName);
+//
+//        for (Task task: tasks){
+//            System.out.println(
+//                    "priority : " + task.getPriority() + " | " +
+//                    "title : "  + task.getTitle() + " | " +
+//                    "description : " + task.getDescription()
+//            );
+//        }
 
-        for (Task task: tasks){
-            System.out.println(
-                    "priority : " + task.getPriority() + " | " +
-                    "title : "  + task.getTitle() + " | " +
-                    "description : " + task.getDescription()
-            );
+        for (int size: sizes){
+            List<Task> tasks = TaskGenerator.generateTasks(size);
+            String fileName = String.format("task_%s.txt", size);
+            saveTaskToFile(tasks, fileName);
         }
     }
 
