@@ -221,8 +221,8 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
 
 
         // если такого элемента нет - null, иначе возвращаем сам элемент
-        if (elem == null || elem.getValue().equals(data)){
-            return elem;
+        if (elem == null){
+            return null;
         }
 
         int comparison = data.compareTo(elem.getValue());
@@ -230,12 +230,9 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
         if (comparison == 0){
             return elem;
         }
+        if (comparison < 0) return searchElem(data, elem.getLeft());
         // если значение меньше, чем у корня, то идем по левой ветке
-        else if (data.compareTo(elem.getValue()) < 0){
-            return searchElem(data, elem.getLeft());
-        }
-
         // иначе по правой
-        return searchElem(data, elem.getRight());
+        else return searchElem(data, elem.getRight());
     }
 }

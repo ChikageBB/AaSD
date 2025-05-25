@@ -2,6 +2,7 @@ package avlTree;
 
 import java.io.*;
 import java.util.List;
+import java.util.Random;
 
 public class Benchmark {
 
@@ -9,6 +10,8 @@ public class Benchmark {
 
         List<Task> tasks = TaskData.loadTaskIntoFile(fileName);
         TaskManager taskManager = new TaskManager();
+        Task lastTask = tasks.get(tasks.size() - 1);
+        Task randomTask = tasks.get(new Random().nextInt(tasks.size()));
 
         try (FileWriter fw = new FileWriter("result.txt", true)) {
 
@@ -16,14 +19,21 @@ public class Benchmark {
                 taskManager.addTask(tasks.get(i));
             }
 
-            Task lastTask = tasks.get(tasks.size() - 1);
+
+
+            // делаем прогрев компилятора
+            for (int i = 0; i < 3; i++) {
+                taskManager.addTask(new Task(lastTask.getPriority(), lastTask.getTitle(),lastTask.getDescription())); // вставка копии
+                taskManager.searchTask(lastTask.getPriority());
+                taskManager.deleteTask(lastTask); // удалить оригинал
+            }
 
             long addTime = execute(() -> {
                 taskManager.addTask(lastTask);
             });
 
             long searchTime = execute(() -> {
-                taskManager.searchTask(lastTask.getPriority());
+                taskManager.searchTask(randomTask.getPriority());
             });
 
             long deleteTime = execute(() -> {
@@ -53,11 +63,9 @@ public class Benchmark {
 
     public static void main(String[] args) {
 
-        int[] sizes = {100, 500, 1000, 5000, 10_000, 15_000, 20_000,
-                               25_000,  50_000, 100_000, 200_000, 500_000, 1_000_000};
 
-        for (int size: sizes){
-            String fileName = String.format("task_%d.txt", size);
+        for (int i = 1; i < 100; i++){
+            String fileName = String.format("task_%d.txt", i);
             benchmark(fileName);
         }
     }
