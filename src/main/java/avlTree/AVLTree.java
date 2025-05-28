@@ -109,17 +109,26 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     private Node<T> applyRotation(Node<T> node){
         int balance = balance(node);
 
+
+        //Перевес в левой стороне (LL или LR)
         if (balance > 1){
+            // Если левый ребенок перевешен вправо -> LR поворот
             if (balance(node.getLeft()) < 0){
-                node.setLeft(rotateLeft(node.getLeft())); // LR поворот
+                node.setLeft(rotateLeft(node.getLeft())); // Сначала левый поворот для левого поддерева
+                return rotateRight(node); // Затем правый для текущего узла
             }
-            return rotateRight(node); // LL поворот
+            // Иначе LL поворот
+            return rotateRight(node);
         }
+        // Перевес в правой стороне (RR или RL)
         if (balance < -1) {
-            if (balance(node.getRight()) > 0) {
-                node.setRight(rotateRight(node.getRight())); // RL поворот
+            // Если правый ребёнок перевешен влево -> RL-поворот
+            if (balance(node.getRight()) > 0) { // Сначала правый поворот для правого поддерева
+                node.setRight(rotateRight(node.getRight()));
+                return rotateLeft(node); // Затем левый для текущего узла
             }
-            return rotateLeft(node); // RR поворот
+            // Иначе — просто RR-поворот (левый)
+            return rotateLeft(node);
         }
         return node; // Баланс в порядке
     }

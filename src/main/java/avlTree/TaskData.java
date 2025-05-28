@@ -42,11 +42,11 @@ public class TaskData {
 
     public static void main(String[] args) {
 
-        int[] sizes = {100, 500, 1000, 5000, 10_000, 15_000, 20_000,
+        int[] sizes = {1000, 1500, 2000, 2500, 3000, 5000, 10_000, 15_000, 20_000,
                                25_000,  50_000, 100_000, 200_000, 500_000, 1_000_000};
 
 //
-//        String fileName = "task_100.txt";
+//        String fileName = "task_.txt";
 //        List<Task> tasks = loadTaskIntoFile(fileName);
 //
 //        for (Task task: tasks){
@@ -57,9 +57,10 @@ public class TaskData {
 //            );
 //        }
 
-        for (int size: sizes){
-            List<Task> tasks = TaskGenerator.generateTasks(size);
-            String fileName = String.format("task_%s.txt", size);
+
+        for (int i = 1; i < 100; i++){
+            List<Task> tasks = TaskGenerator.generateTasks(i * 1000);
+            String fileName = String.format("task_%s.txt", i);
             saveTaskToFile(tasks, fileName);
         }
     }
