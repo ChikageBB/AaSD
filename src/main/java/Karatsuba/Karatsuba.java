@@ -3,8 +3,8 @@ package Karatsuba;
 public class Karatsuba {
     public static void main(String[] args) {
 
-        String x = "1000";
-        String y = "10";
+        String x = "1110";
+        String y = "110";
 
         String res = karatsuba(x, y);
         System.out.println(binaryToDecimal(res));
@@ -14,8 +14,12 @@ public class Karatsuba {
     public static String karatsuba(String x, String y){
         int n = Math.max(x.length(), y.length());
 
-        x = addNull(x, n);
-        y = addNull(y, n);
+        int newLength = nextPowerOfTwo(n);
+
+        x = addNull(x, newLength);
+        y = addNull(y, newLength);
+
+        n = newLength;
 
         if (n == 1){
             return multiplyOneBit(x, y);
@@ -45,6 +49,12 @@ public class Karatsuba {
             s = "0" + s;
         }
         return s;
+    }
+
+    public static int nextPowerOfTwo(int n) {
+        int power = 1;
+        while (power < n) power *= 2;
+        return power;
     }
 
 
