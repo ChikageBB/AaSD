@@ -8,12 +8,12 @@ public class Task2 {
     public static void main(String[] args) {
 
         List<List<Integer>> moves = new ArrayList<>();
-        moves.add(Collections.emptyList());  // индекс 0 — не используется
-        moves.add(List.of(1));           // 1 палочка — можно взять 1
-        moves.add(List.of(1));          // 2 палочки — можно взять 1
-        moves.add(List.of(1, 2));         // 3 палочки — можно взять 1 или 2
-        moves.add(List.of(1, 3));        // 4 палочки — можно взять 1 или 3
-        moves.add(List.of(1, 3));       // 5 палочек — можно взять 1 или 3
+        moves.add(Collections.emptyList());
+        moves.add(List.of(1));
+        moves.add(List.of(1));
+        moves.add(List.of(1, 2));
+        moves.add(List.of(1, 3));
+        moves.add(List.of(1, 3));
 
         System.out.println(winner(5, moves));
     }

@@ -5,39 +5,35 @@ import java.util.Arrays;
 public class Task1 {
 
     public static void main(String[] args) {
-
+        System.out.println(Arrays.toString(sum(new int[]{1, 2, 3, 4, 5, 6, 7}, 7)));
     }
 
 
-    public static int[] sum(int[] nums, int target){
+    public static int[] sum(int[] nums, int target) {
         Arrays.sort(nums);
         int n = nums.length;
-        int sum = nums[0] + nums[1] + nums[2];
-        int[] res = new int[] {nums[0], nums[1], nums[2]};
+        int closestSum = nums[0] + nums[1] + nums[2];
+        int[] res = new int[]{nums[0], nums[1], nums[2]};
 
-
-        for (int i = 0; i < n - 2; ++i){
-            int a = nums[i];
+        for (int i = 0; i < n - 2; ++i) {
             int left = i + 1;
             int right = n - 1;
 
-            while (left < right){
-                int b = nums[left];
-                int c = nums[right];
+            while (left < right) {
+                int currentSum = nums[i] + nums[left] + nums[right];
 
-                int sum1 = a + b + c;
-
-                if (Math.abs(sum - target)< Math.abs(sum1 - target)){
-                    sum = sum1;
-                    res = new int[] {a, b, c};
+                if (Math.abs(currentSum - target) < Math.abs(closestSum - target)) {
+                    closestSum = currentSum;
+                    res = new int[]{nums[i], nums[left], nums[right]};
                 }
 
-                if (sum1 < target) {
+                if (currentSum < target) {
                     left++;
-                }else{
+                } else if (currentSum > target) {
                     right--;
+                } else {
+                    return res;
                 }
-
             }
         }
         return res;
